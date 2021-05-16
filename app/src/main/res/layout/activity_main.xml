@@ -23,12 +23,13 @@
         android:layout_width="384dp"
         android:layout_height="319dp"
         android:background="#BEF87B"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.308"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
+        android:src="@android:drawable/ic_menu_crop"/>
 
     <Button
         android:id="@+id/addTaskButton"
