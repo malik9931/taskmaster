@@ -29,6 +29,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
+        android:src="@android:drawable/ic_menu_crop" />
 </androidx.constraintlayout.widget.ConstraintLayout>
