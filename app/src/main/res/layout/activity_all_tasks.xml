@@ -4,16 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9ad3bc"
     tools:context=".AllTasksActivity">
 
     <TextView
         android:id="@+id/textView6"
-        android:layout_width="183dp"
-        android:layout_height="55dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:background="#f3eac2"
         android:text="All Tasks"
+        android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="36sp"
+        android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.067"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,9 +29,9 @@
         android:layout_width="317dp"
         android:layout_height="300dp"
         android:layout_marginTop="196dp"
-        android:background="#86E88A"
+        android:background="#f3eac2"
+        android:src="@android:drawable/ic_menu_crop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@android:drawable/ic_menu_crop" />
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

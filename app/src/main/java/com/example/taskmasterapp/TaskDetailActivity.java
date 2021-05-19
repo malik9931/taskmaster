@@ -12,13 +12,28 @@ public class TaskDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_detail);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Task Master");
 
-        // Get the Intent that started this activity and extract the string
-        String message = getIntent().getStringExtra("titleButton");
+//        // Get the Intent that started this activity and extract the string
+//        String message = getIntent().getStringExtra("titleButton");
 
         // Capture the layout's TextView and set the string as its text
-        TextView textView = findViewById(R.id.taskTitleTextView);
-        textView.setText(message);
+        TextView titleTextView = findViewById(R.id.taskTitleTextView);
+        TextView bodyTextView = findViewById(R.id.taskDescriptionTextView);
+
+        String title = "Title not set";
+        String body = "Body not set";
+
+        Bundle extras = getIntent().getExtras();
+        if (extras != null){
+            title = extras.getString("title");
+            body = extras.getString("body");
+
+        }
+
+        titleTextView.setText(title);
+        bodyTextView.setText(body);
 
     }
 }
