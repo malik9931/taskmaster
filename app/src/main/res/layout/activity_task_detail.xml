@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9ad3bc"
     tools:context=".TaskDetailActivity">
 
     <TextView
@@ -13,7 +14,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="serif"
         android:text="Title"
-        android:textColor="#E91E63"
+        android:textColor="#000000"
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

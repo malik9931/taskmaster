@@ -14,6 +14,8 @@ public class AddTaskActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setTitle("Task Master");
 
         // Get the Intent that started this activity
         Intent intent = getIntent();

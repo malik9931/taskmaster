@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#9ad3bc"
     tools:context=".AddTaskActivity">
 
     <TextView
@@ -28,6 +29,7 @@
         android:layout_height="22dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="44dp"
+        android:background="#f3eac2"
         android:text="Total Tasks: 0"
         android:textColor="#333333"
         android:textSize="12sp"
@@ -40,6 +42,7 @@
         android:layout_height="22dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="200dp"
+        android:background="#f5b461"
         android:text="Task description"
         android:textColor="#000000"
         android:textSize="14sp"
@@ -56,18 +59,19 @@
         android:inputType="textPersonName"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:layout_editor_absoluteX="28dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="28dp" />
 
     <TextView
         android:id="@+id/textView"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="40dp"
+        android:textAlignment="center"
+        android:layout_marginTop="32dp"
+        android:background="#f3eac2"
         android:text="Add Tasks"
         android:textColor="#000000"
-        android:textSize="30sp"
+        android:textSize="36sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -78,6 +82,7 @@
         android:layout_height="20dp"
         android:layout_marginStart="28dp"
         android:layout_marginTop="100dp"
+        android:background="#f5b461"
         android:text="Task title"
         android:textColor="#000000"
         android:textSize="14sp"
@@ -94,8 +99,8 @@
         android:inputType="textPersonName"
         android:textSize="14sp"
         app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:layout_editor_absoluteX="28dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="28dp" />
 
     <Button
         android:id="@+id/addTaskInnerButton"
@@ -103,6 +108,7 @@
         android:layout_height="36dp"
         android:layout_marginStart="52dp"
         android:layout_marginTop="16dp"
+        android:backgroundTint="#ec524b"
         android:text="add task"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName2"
