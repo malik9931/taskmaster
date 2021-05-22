@@ -21,19 +21,25 @@ public class TaskDetailActivity extends AppCompatActivity {
         // Capture the layout's TextView and set the string as its text
         TextView titleTextView = findViewById(R.id.taskTitleTextView);
         TextView bodyTextView = findViewById(R.id.taskDescriptionTextView);
+        TextView stateTextView = findViewById(R.id.taskStatusTextView);
 
         String title = "Title not set";
         String body = "Body not set";
+        String state = "state not set";
+
 
         Bundle extras = getIntent().getExtras();
         if (extras != null){
             title = extras.getString("title");
             body = extras.getString("body");
+            state = extras.getString("state");
+
 
         }
 
         titleTextView.setText(title);
         bodyTextView.setText(body);
+        stateTextView.setText(state);
 
     }
 }
