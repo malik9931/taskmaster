@@ -5,14 +5,14 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
+
+import com.example.taskmasterapp.Models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,14 +32,8 @@ public class MainActivity extends AppCompatActivity  {
 
 
         /** Adding instances to the tasksList */
-        tasksList = new ArrayList<>();
-        Task t1 = new Task("firstTask","lorem ipsum","complete");
-        Task t2 = new Task("secondTask","lorem ipsum","complete");
-        Task t3 = new Task("thirdTask","lorem ipsum","complete");
+        tasksList =  AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks();
 
-        tasksList.add(t1);
-        tasksList.add(t2);
-        tasksList.add(t3);
 
         /** RecyclerView Stuff */
         recyclerView = findViewById(R.id.recyclerView);
@@ -62,6 +56,7 @@ public class MainActivity extends AppCompatActivity  {
                 Intent intent = new Intent(getApplicationContext(), TaskDetailActivity.class);
                 intent.putExtra("title",tasksList.get(position).getTitle());
                 intent.putExtra("body",tasksList.get(position).getBody());
+                intent.putExtra("state",tasksList.get(position).getState());
 //                intent.putExtra("title",tasksList.get(position).getTitle());
                 startActivity(intent);
             }

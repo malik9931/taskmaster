@@ -1,9 +1,19 @@
-package com.example.taskmasterapp;
+package com.example.taskmasterapp.Models;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
+@Entity
 public class Task {
 
+    @PrimaryKey(autoGenerate = true)
+    private Long id;
+    @ColumnInfo(name = "title")
     private String title;
+    @ColumnInfo(name = "body")
     private String body;
+    @ColumnInfo(name = "state")
     private String state;
 //    = {"new", "assigned", "progress", "complete"};
 
@@ -16,6 +26,9 @@ public class Task {
         this.state = state;
     }
 
+    public Long getId() {
+        return id;
+    }
 
     public String getTitle() {
         return title;
@@ -41,8 +54,7 @@ public class Task {
         this.state = state;
     }
 
-    public static void main(String[] args) {
-//        Task task = new Task("ss","ss","sa");
+    public void setId(Long id) {
+        this.id = id;
     }
-
 }
