@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -92,5 +93,50 @@ public class MainActivity extends AppCompatActivity  {
     public void renderSettingView(View view) {
         Intent intent = new Intent(this, SettingsActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        Log.d("---------------------", "onStart():  ------------------");
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Log.d("---------------------", "onPause():  ------------------");
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.d("---------------------", "onDestroy():  ------------------");
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        Log.d("---------------------", "onRestart():  ------------------");
+        /** Adding instances to the tasksList */
+        tasksList =  AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks();
+
+
+        /** RecyclerView Stuff */
+        recyclerView = findViewById(R.id.recyclerView);
+        setOnClickListener();
+        recyclerAdapter = new RecyclerAdapter(tasksList,listener);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        recyclerView.setAdapter(recyclerAdapter);
+
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
+        recyclerView.addItemDecoration(dividerItemDecoration);
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        Log.d("---------------------", "onStop():  ------------------");
     }
 }
