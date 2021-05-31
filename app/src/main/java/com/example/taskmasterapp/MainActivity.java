@@ -13,6 +13,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
+import com.amplifyframework.AmplifyException;
+import com.amplifyframework.core.Amplify;
+import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.example.taskmasterapp.Models.Task;
 
 import java.util.ArrayList;
@@ -22,7 +25,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
-    private List<Task> tasksList ;
+    public List<Task>  tasksList ;
     private RecyclerAdapter.RecyclerViewClickListener listener;
 
     @Override
@@ -30,11 +33,30 @@ public class MainActivity extends AppCompatActivity  {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().setTitle("Task Master");
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i("Tutorial", "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e("Tutorial", "Could not initialize Amplify", e);
+        }
 
 
         /** Adding instances to the tasksList */
-        tasksList =  AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks();
+//        tasksList =  AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks();
+        tasksList =  new ArrayList<>();
+        Amplify.DataStore.query(Task.class,
+                tasksList ->{
+                    while (tasksList.hasNext()){
+                        Task task = (Task) tasksList.next();
 
+                        if (task.getTitle() != null){
+                            this.tasksList.add(task);
+                        }
+                    }
+                },
+                failure -> Log.e("Tutorial", "Could not query DataStore", failure));
 
         /** RecyclerView Stuff */
         recyclerView = findViewById(R.id.recyclerView);
@@ -67,6 +89,31 @@ public class MainActivity extends AppCompatActivity  {
     @Override
     protected void onResume() {
         super.onResume();
+
+        try {
+            Amplify.addPlugin(new AWSDataStorePlugin());
+            Amplify.configure(getApplicationContext());
+
+            Log.i("Tutorial", "Initialized Amplify");
+        } catch (AmplifyException e) {
+            Log.e("Tutorial", "Could not initialize Amplify", e);
+        }
+
+
+        /** Adding instances to the tasksList */
+//        tasksList =  AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks();
+        tasksList =  new ArrayList<>();
+        Amplify.DataStore.query(Task.class,
+                tasksList ->{
+                    while (tasksList.hasNext()){
+                        Task task = (Task) tasksList.next();
+
+                        if (task.getTitle() != null){
+                            this.tasksList.add(task);
+                        }
+                    }
+                },
+                failure -> Log.e("Tutorial", "Could not query DataStore", failure));
 
         // ------------- Getting SharedPreferences --------------------
         SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
