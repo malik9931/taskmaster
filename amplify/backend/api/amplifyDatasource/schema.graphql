@@ -1,0 +1,23 @@
+enum State {
+  NEW
+  ASSIGNED
+  PROGRESS
+  COMPLETE
+}
+
+type Task @model {
+  id: ID!
+  title: String!
+  body: String
+  state: State
+}
+
+#@PrimaryKey(autoGenerate = true)
+#private Long id;
+#@ColumnInfo(name = "title")
+#private String title;
+#@ColumnInfo(name = "body")
+#private String body;
+#@ColumnInfo(name = "state")
+#private String state;
+#//    = {"new", "assigned", "progress", "complete"};
