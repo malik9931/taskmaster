@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerAdapter.RecyclerViewClickListener listener;
     private Map<String, String> cognitoUsername;
     private Button signOutButton;
+    private TextView userNameSignedInText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
         ////////////////////////////////
 //        cognitoUsername = AWSMobileClient.getInstance().getUsername();
-        TextView userNameSignedInText = (TextView) findViewById(R.id.userNameSignedInText);
+        userNameSignedInText = (TextView) findViewById(R.id.userNameSignedInText);
 //        SharedPreferences.Editor editor = sharedPreferences.edit();
 //        editor.putString("username", cognitoUsername);
 //        editor.apply();
@@ -75,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
         Amplify.Auth.fetchAuthSession(
                 result -> {
                     if (!result.isSignedIn()) {
-                        // if the user signed in, show him the sign in button
                         Amplify.Auth.signInWithWebUI(
                                 this,
                                 results -> Log.i("AuthQuickStart", results.toString()),
@@ -83,33 +83,16 @@ public class MainActivity extends AppCompatActivity {
                         );
 
                     } else {
-                        Map<String, String> welcome_msg_text= null;
-                        try {
-                            cognitoUsername = AWSMobileClient.getInstance().getUserAttributes();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        if (welcome_msg_text.get("name")!=null){
-                            userNameSignedInText.setText(welcome_msg_text.get("name"));
-                        }else
-                        {
                             userNameSignedInText.setText(AWSMobileClient.getInstance().getUsername());
 
                         }
 
-
-                    }
                 },
                 error -> Log.e("AmplifyQuickstart", error.toString())
         );
 
 
         // Get the User attributes
-        Amplify.Auth.fetchUserAttributes(
-                attributes -> Log.i("AuthDemo", "User attributes = " + attributes.toString()),
-                error -> Log.e("AuthDemo", "Failed to fetch user attributes.", error)
-        );
-
         signOutButton = (Button) findViewById(R.id.signOutButton);
         signOutButton.setOnClickListener(view -> {
             Amplify.Auth.signOut(
@@ -120,7 +103,14 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }// end of onCreate
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
+            Amplify.Auth.handleWebUISignInResponse(data);
+        }
+    }
     private void setOnClickListener() {
         listener = new RecyclerAdapter.RecyclerViewClickListener() {
             @Override
@@ -147,7 +137,20 @@ public class MainActivity extends AppCompatActivity {
 //        } catch (AmplifyException e) {
 //            Log.e("Tutorial", "Could not initialize Amplify", e);
 //        }
-
+        Amplify.Auth.fetchAuthSession(
+                result -> {
+                    if (!result.isSignedIn()) {
+                        Amplify.Auth.signInWithWebUI(
+                                this,
+                                results -> Log.i("AuthQuickStart", results.toString()),
+                                error -> Log.e("AuthQuickStart", error.toString())
+                        );
+                    } else {
+                        userNameSignedInText.setText(AWSMobileClient.getInstance().getUsername());
+                    }
+                },
+                error -> Log.e("AmplifyQuickstart", error.toString())
+        );
 
         /** Adding instances to the tasksList */
 //        tasksList =  AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks();
