@@ -28,8 +28,8 @@ public interface TaskDao {
     @Query("SELECT * FROM task")
     List<Task> getAllTasks();
 
-    @Query("SELECT * FROM task WHERE id= :id")
-    Task findTaskById(Long id);
+//    @Query("SELECT * FROM task WHERE id= :id")
+//    Task findTaskById(Long id);
 
 
 }

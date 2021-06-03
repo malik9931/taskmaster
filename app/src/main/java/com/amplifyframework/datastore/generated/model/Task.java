@@ -43,7 +43,7 @@ public final class Task implements Model {
       return state;
   }
   
-  private Task(String id, String title, String body, State state) {
+  public Task(String id, String title, String body, State state) {
     this.id = id;
     this.title = title;
     this.body = body;

@@ -2,6 +2,7 @@ package com.example.taskmasterapp.Models;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
+import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
@@ -15,15 +16,18 @@ public class Task {
     private String body;
     @ColumnInfo(name = "state")
     private String state;
+    @ColumnInfo(name = "image")
+    private String image;
 //    = {"new", "assigned", "progress", "complete"};
-
+    @Ignore
     public Task() {
     }
 
-    public Task(String title, String body, String state) {
+    public Task(String title, String body, String state, String image) {
         this.title = title;
         this.body = body;
         this.state = state;
+        this.image = image;
     }
 
     public Long getId() {
@@ -52,6 +56,14 @@ public class Task {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
     }
 
     public void setId(Long id) {

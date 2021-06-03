@@ -89,12 +89,8 @@
                         android:onClick="renderAllTaskView"
                         android:text="all tasks"
                         tools:ignore="MissingConstraints" />
-                </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal"></LinearLayout>
+                </LinearLayout>
 
                 <Button
                     android:id="@+id/settingsButton"
@@ -108,11 +104,26 @@
                     android:text="Settings"
                     android:textStyle="bold" />
 
-                <Button
-                    android:id="@+id/signOutButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Sign Out" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/signInButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sign In" />
+
+                    <Button
+                        android:id="@+id/signOutButton"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Sign Out"
+                        android:textAlignment="center" />
+                </LinearLayout>
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recyclerView"

@@ -1,156 +1,173 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#9ad3bc"
-    tools:context=".AddTaskActivity">
+    android:fillViewport="true">
 
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="148dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="26dp"
-        android:background="#f5b461"
-        android:text="Task status"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/addedBodyTextView" />
-
-    <TextView
-        android:id="@+id/totalTaskTextView"
-        android:layout_width="148dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="52dp"
-        android:background="#f3eac2"
-        android:text="Total Tasks: 0"
-        android:textColor="#333333"
-        android:textSize="12sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="148dp"
-        android:layout_height="22dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="200dp"
-        android:background="#f5b461"
-        android:text="Task description"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/addedBodyTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:ems="10"
-        android:hint="Do Something"
-        android:inputType="textPersonName"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/textView3"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="28dp" />
-
-    <TextView
-        android:id="@+id/textView"
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:background="#f3eac2"
-        android:text="Add Tasks"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="36sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_height="match_parent"
+        android:background="#9ad3bc"
+        android:isScrollContainer="true"
+        tools:context=".AddTaskActivity">
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="83dp"
-        android:layout_height="20dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="100dp"
-        android:background="#f5b461"
-        android:text="Task title"
-        android:textColor="#000000"
-        android:textSize="14sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/addedTitleTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:ems="10"
-        android:hint="Task title"
-        android:inputType="textPersonName"
-        android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@+id/textView2"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteX="28dp" />
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="148dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginTop="26dp"
+            android:background="#f5b461"
+            android:text="Task status"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addedBodyTextView" />
 
-    <Button
-        android:id="@+id/addTaskInnerButton"
-        android:layout_width="109dp"
-        android:layout_height="36dp"
-        android:layout_marginStart="88dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginEnd="58dp"
-        android:backgroundTint="#ec524b"
-        android:text="add task"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toEndOf="@+id/totalTaskTextView"
-        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
-        tools:ignore="MissingConstraints" />
+        <TextView
+            android:id="@+id/totalTaskTextView"
+            android:layout_width="148dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="52dp"
+            android:background="#f3eac2"
+            android:text="Total Tasks: 0"
+            android:textColor="#333333"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="11dp"
-        android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView4">
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="148dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="200dp"
+            android:background="#f5b461"
+            android:text="Task description"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <RadioButton
-            android:id="@+id/newRadioButton"
-            android:layout_width="81dp"
-            android:layout_height="wrap_content"
-            android:checked="true"
-            android:text="new" />
-
-        <RadioButton
-            android:id="@+id/assignedRadioButton"
-            android:layout_width="108dp"
-            android:layout_height="wrap_content"
-            android:text="assigned" />
-
-        <RadioButton
-            android:id="@+id/inProgressRadioButton"
+        <EditText
+            android:id="@+id/addedBodyTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="in progress" />
+            android:layout_marginTop="12dp"
+            android:ems="10"
+            android:hint="Do Something"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/textView3"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="28dp" />
 
-        <RadioButton
-            android:id="@+id/completeRadioButton"
-            android:layout_width="101dp"
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="complete" />
-    </RadioGroup>
+            android:layout_marginTop="32dp"
+            android:background="#f3eac2"
+            android:text="Add Tasks"
+            android:textAlignment="center"
+            android:textColor="#000000"
+            android:textSize="36sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="83dp"
+            android:layout_height="20dp"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="100dp"
+            android:background="#f5b461"
+            android:text="Task title"
+            android:textColor="#000000"
+            android:textSize="14sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/addedTitleTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:ems="10"
+            android:hint="Task title"
+            android:inputType="textPersonName"
+            android:textSize="14sp"
+            app:layout_constraintTop_toBottomOf="@+id/textView2"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="28dp" />
+
+        <Button
+            android:id="@+id/addTaskInnerButton"
+            android:layout_width="109dp"
+            android:layout_height="36dp"
+            android:layout_marginTop="32dp"
+            android:backgroundTint="#ec524b"
+            android:text="add task"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/pickImageButton"
+            tools:ignore="MissingConstraints" />
+
+        <RadioGroup
+            android:id="@+id/radioGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="11dp"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4">
+
+            <RadioButton
+                android:id="@+id/newRadioButton"
+                android:layout_width="81dp"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:text="new" />
+
+            <RadioButton
+                android:id="@+id/assignedRadioButton"
+                android:layout_width="108dp"
+                android:layout_height="wrap_content"
+                android:text="assigned" />
+
+            <RadioButton
+                android:id="@+id/inProgressRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="in progress" />
+
+            <RadioButton
+                android:id="@+id/completeRadioButton"
+                android:layout_width="101dp"
+                android:layout_height="wrap_content"
+                android:text="complete" />
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/pickImageButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="52dp"
+            android:text="Pick Image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.543"
+            app:layout_constraintStart_toEndOf="@+id/totalTaskTextView"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>
