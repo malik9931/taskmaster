@@ -4,7 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.amplifyframework.core.Amplify;
+import com.bumptech.glide.Glide;
+
+import java.io.File;
 
 public class TaskDetailActivity extends AppCompatActivity {
 
@@ -22,10 +29,13 @@ public class TaskDetailActivity extends AppCompatActivity {
         TextView titleTextView = findViewById(R.id.taskTitleTextView);
         TextView bodyTextView = findViewById(R.id.taskDescriptionTextView);
         TextView stateTextView = findViewById(R.id.taskStatusTextView);
+        ImageView taskImageView = findViewById(R.id.taskImageView);
 
         String title = "Title not set";
         String body = "Body not set";
         String state = "state not set";
+        String image = "image not set";
+
 
 
         Bundle extras = getIntent().getExtras();
@@ -33,13 +43,20 @@ public class TaskDetailActivity extends AppCompatActivity {
             title = extras.getString("title");
             body = extras.getString("body");
             state = extras.getString("state");
-
+            image = extras.getString("image");
 
         }
+
 
         titleTextView.setText(title);
         bodyTextView.setText(body);
         stateTextView.setText(state);
+
+
+        // To Download the file we use the Glide Library
+        Glide.with(this)
+                .load("https://taskmasterbucket12923-dev.s3.amazonaws.com/public/"+image)
+                .into(taskImageView);
 
     }
 }

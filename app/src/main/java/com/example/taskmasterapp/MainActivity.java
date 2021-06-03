@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,11 +20,14 @@ import com.amplifyframework.AmplifyException;
 import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
+import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 import com.example.taskmasterapp.Models.Task;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static com.example.taskmasterapp.AppDataBase.getInstance;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerAdapter.RecyclerViewClickListener listener;
     private Map<String, String> cognitoUsername;
     private Button signOutButton;
+    private Button signInButton;
     private TextView userNameSignedInText;
 
     @Override
@@ -43,14 +48,18 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().setTitle("Task Master");
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
         try {
+            // Add these lines to add the AWSCognitoAuthPlugin and AWSS3StoragePlugin plugins
+            Amplify.addPlugin(new AWSDataStorePlugin());
             Amplify.addPlugin(new AWSCognitoAuthPlugin());
+            Amplify.addPlugin(new AWSS3StoragePlugin());
             Amplify.configure(getApplicationContext());
-        } catch (AmplifyException e) {
-            e.printStackTrace();
+            Log.i("MyAmplifyApp", "Initialized Amplify");
+        } catch (AmplifyException error) {
+            Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
 
         /** Adding instances to the tasksList */
-        tasksList = AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks();
+        tasksList = getInstance(getApplicationContext()).taskDao().getAllTasks();
 
         /** RecyclerView Stuff */
         recyclerView = findViewById(R.id.recyclerView);
@@ -72,24 +81,32 @@ public class MainActivity extends AppCompatActivity {
 //        editor.apply();
 //        userNameSignedInText.setText(sharedPreferences.getString("username", "username"));
 
-        // Add this line, to include the Auth plugin.
-        Amplify.Auth.fetchAuthSession(
-                result -> {
-                    if (!result.isSignedIn()) {
-                        Amplify.Auth.signInWithWebUI(
-                                this,
-                                results -> Log.i("AuthQuickStart", results.toString()),
-                                error -> Log.e("AuthQuickStart", error.toString())
-                        );
+        // Sign In button
+        signInButton = (Button) findViewById(R.id.signInButton);
+//        signInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+                // Add this line, to include the Auth plugin.
+                Amplify.Auth.fetchAuthSession(
+                        result -> {
+                            if (!result.isSignedIn()) {
+                                Amplify.Auth.signInWithWebUI(
+                                        this,
+                                        results -> Log.i("AuthQuickStart", results.toString()),
+                                        error -> Log.e("AuthQuickStart", error.toString())
+                                );
 
-                    } else {
-                            userNameSignedInText.setText(AWSMobileClient.getInstance().getUsername());
+                            } else {
+                                userNameSignedInText.setText(AWSMobileClient.getInstance().getUsername());
 
-                        }
+                            }
 
-                },
-                error -> Log.e("AmplifyQuickstart", error.toString())
-        );
+                        },
+                        error -> Log.e("AmplifyQuickstart", error.toString())
+                );
+//            }
+//        });
+
 
 
         // Get the User attributes
@@ -106,7 +123,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == AWSCognitoAuthPlugin.WEB_UI_SIGN_IN_ACTIVITY_CODE) {
             Amplify.Auth.handleWebUISignInResponse(data);
         }
@@ -119,6 +135,8 @@ public class MainActivity extends AppCompatActivity {
                 intent.putExtra("title", tasksList.get(position).getTitle());
                 intent.putExtra("body", tasksList.get(position).getBody());
                 intent.putExtra("state", tasksList.get(position).getState());
+                intent.putExtra("image", tasksList.get(position).getImage());
+
 //                intent.putExtra("title",tasksList.get(position).getTitle());
                 startActivity(intent);
             }
@@ -224,7 +242,7 @@ public class MainActivity extends AppCompatActivity {
         super.onRestart();
         Log.d("---------------------", "onRestart():  ------------------");
         /** Adding instances to the tasksList */
-        tasksList = AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks();
+        tasksList = getInstance(getApplicationContext()).taskDao().getAllTasks();
 
 
         /** RecyclerView Stuff */
@@ -246,3 +264,9 @@ public class MainActivity extends AppCompatActivity {
         Log.d("---------------------", "onStop():  ------------------");
     }
 }
+//
+//
+//[default]
+//        aws_access_key_id=ASIA2MDALLPDFDLLJGMX
+//        aws_secret_access_key=xj5ypQJsiaH7lxwf51COYy4QUDUUfxx1VZ1ktxjT
+//        aws_session_token=IQoJb3JpZ2luX2VjEC4aCXVzLXdlc3QtMiJIMEYCIQD0SwPqOzFLhm4ib+gx9j0vVqs8ggMSfFKh3sLDlgU6AQIhALCfrgvQjZL08kMs5y3pO0PJd4kT4gq1UL3Dmta+XZyCKrsCCNf//////////wEQABoMNzEzMTY2NjQyMTE4IgzUCHB6lSe2OQ/zuUUqjwJyLkoaHoMEx4kczA9fkfBAwgOmkwzx8lgh+4Zeqnd1aaaxfVbM1cSBbvWD+zoc2VUfHRH0K/+QarfSUXWJ2Gz7tYyRoAT9VOLXCO8IGn676kcIzbvcmMopQrtJQZNjRM/oM+ful5j9Y5jTzO5/V4sXwf1Ac6zkVB53/cD21VBrn/P6gVHzB3urDw3NL6IQqFvFAmiVtkGRBrJiB42YqD+NO5ZuMEgCK6ZwlmsiFr0m+bjPlBrEle0F090KnK0FEN9pobBqI/ThhApI1xTN9wDWsZavTOdRDlzukZvpqJ8bvWFkTCcmOZIIPn4s8i5TG7iY/Loa76pxL2hOgMsHAt+P4LUP9djbjQpyXOnh42ajMPKR3oUGOpwBuOYfmbdeRL3WOWr3mqryEIEmODUNlGlgow3ae3/xqCISgUqvbh1+O/GGrmz9vZYEw/pwF1SdjxgmqfggQZI3M441UydLkdDcaDsizTlD6G0Xw6zRBUg/cSPjt6hfgh9yckgYZ72Rv82oG4t8tgvxVEHyEboET063K5nErZoX3d20RvAOr6yqzB49lLxjG8fdVTuTtSviLbonza1v

@@ -12,7 +12,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.taskmasterapp.Daos.TaskDao;
 import com.example.taskmasterapp.Models.Task;
 
-@Database(entities = {Task.class}, version = 1)
+@Database(entities = {Task.class}, version = 2, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     private static volatile AppDataBase appDataBase;
@@ -24,7 +24,7 @@ public abstract class AppDataBase extends RoomDatabase {
         if (appDataBase == null){
             synchronized (AppDataBase.class){
                 if (appDataBase == null){
-                    appDataBase = Room.databaseBuilder(context, AppDataBase.class,"task-database").allowMainThreadQueries().build();
+                    appDataBase = Room.databaseBuilder(context, AppDataBase.class,"task-database").allowMainThreadQueries().fallbackToDestructiveMigration().build();
                 }
             }
         }
