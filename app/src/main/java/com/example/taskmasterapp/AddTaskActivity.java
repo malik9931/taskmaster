@@ -80,7 +80,19 @@ public class AddTaskActivity extends AppCompatActivity {
 //                );
                 finish();
             }
+
         });
+        intent = getIntent();
+        if(intent.getType() != null){
+//            Toast.makeText(this, intent.getData().toString(), Toast.LENGTH_LONG).show();
+//            if(intent.getType().contains("image/")){
+//                fileName = getFileName(intent.getData());
+//                // TODO: call the upload file here, when it is fixed
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//                    uploadFile(this, intent.getData(), fileName);
+//                }
+//            }
+        }
     }
 //    private void uploadInputStream() {
 //        InputStream exampleInputStream = getContentResolver().openInputStream(uri);
