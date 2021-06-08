@@ -1,11 +1,11 @@
 package com.example.taskmasterapp;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -14,6 +14,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.amazonaws.mobile.client.AWSMobileClient;
 import com.amplifyframework.AmplifyException;
@@ -21,9 +22,11 @@ import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
-import com.example.taskmasterapp.Models.Task;
+import com.example.taskmasterapp.Models.TaskModule;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -33,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RecyclerAdapter recyclerAdapter;
-    public List<Task> tasksList;
+    public List<TaskModule> tasksList;
     SharedPreferences sharedPreferences = null;
     private RecyclerAdapter.RecyclerViewClickListener listener;
     private Map<String, String> cognitoUsername;
@@ -57,6 +60,7 @@ public class MainActivity extends AppCompatActivity {
         } catch (AmplifyException error) {
             Log.e("MyAmplifyApp", "Could not initialize Amplify", error);
         }
+
 
         /** Adding instances to the tasksList */
         tasksList = getInstance(getApplicationContext()).taskDao().getAllTasks();
@@ -119,6 +123,24 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FCM Token ..", "Fetching FCM registration token failed", task.getException());
+                            return;
+                        }
+
+                        // Get new FCM registration token
+                        String token = task.getResult();
+
+                        // Log and toast
+//                        String msg = getString(R.string.msg_token_fmt, token);
+                        Log.d("FCM Token ..", token);
+//                        Toast.makeText(MainActivity.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
     }// end of onCreate
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

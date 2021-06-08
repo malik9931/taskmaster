@@ -17,21 +17,13 @@ import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.amplifyframework.AmplifyException;
-import com.amplifyframework.auth.cognito.AWSCognitoAuthPlugin;
 import com.amplifyframework.core.Amplify;
-import com.amplifyframework.datastore.AWSDataStorePlugin;
-import com.amplifyframework.datastore.generated.model.State;
-import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
-import com.example.taskmasterapp.Models.Task;
+import com.example.taskmasterapp.Models.TaskModule;
 
-import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 
@@ -78,8 +70,8 @@ public class AddTaskActivity extends AppCompatActivity {
 //                    Toast.makeText(AddTaskActivity.this,"U added a new Task",Toast.LENGTH_SHORT).show();
 
 //                Task task= Task.builder().title(titleTextView.getText().toString()).body(bodyTextView.getText().toString()).state(State.NEW).build();
-                com.example.taskmasterapp.Models.Task task = new Task(titleTextView.getText().toString(),bodyTextView.getText().toString(),radioButton.getText().toString(),uploadedFileName);
-                AppDataBase.getInstance(getApplicationContext()).taskDao().addTask(task);
+                TaskModule taskModule = new TaskModule(titleTextView.getText().toString(),bodyTextView.getText().toString(),radioButton.getText().toString(),uploadedFileName);
+                AppDataBase.getInstance(getApplicationContext()).taskDao().addTask(taskModule);
                 // upload an image to the S3 AWS
 //                uploadFile(titleTextView.getText().toString());
 //                Amplify.DataStore.save(task,
