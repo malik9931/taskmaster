@@ -2,12 +2,18 @@ package com.example.taskmasterapp;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
+import android.location.Location;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -23,11 +29,16 @@ import com.amplifyframework.core.Amplify;
 import com.amplifyframework.datastore.AWSDataStorePlugin;
 import com.amplifyframework.storage.s3.AWSS3StoragePlugin;
 import com.example.taskmasterapp.Models.TaskModule;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import java.io.IOException;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import static com.example.taskmasterapp.AppDataBase.getInstance;
@@ -43,6 +54,9 @@ public class MainActivity extends AppCompatActivity {
     private Button signOutButton;
     private Button signInButton;
     private TextView userNameSignedInText;
+
+    private FusedLocationProviderClient fusedLocationProviderClient;
+    public static String currentLocation = "not available";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +91,56 @@ public class MainActivity extends AppCompatActivity {
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
         recyclerView.addItemDecoration(dividerItemDecoration);
 
+        ////////////////////////
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+
+        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED)
+            return;
+//        if(ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED){
+        fusedLocationProviderClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            Geocoder geocoder = new Geocoder(MainActivity.this, Locale.getDefault());
+                            try{
+                                Address city = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1).get(0);
+//                                    Toast.makeText(MainActivity.this, city.toString(), Toast.LENGTH_LONG).show();
+                                Log.d("city", city.getAddressLine(0).split(",")[1]);
+                                currentLocation = city.getLocality();
+                                Log.d("city", city.toString());
+//                                    Toast.makeText(MainActivity.this, "Latitude: " + location.getLatitude() + ", Longitude" + location.getLongitude(), Toast.LENGTH_LONG).show();
+
+                            }catch (IOException e){
+                                e.printStackTrace();
+                            }
+
+                        }
+                    }
+                });
+//        }else{
+//            String[] permissions = {Manifest.permission.ACCESS_FINE_LOCATION};
+//            ActivityCompat.requestPermissions(this, permissions, 1);
+//            // check if the user granted the permission
+//            if(ContextCompat.checkSelfPermission(this, permissions[0]) == PackageManager.PERMISSION_GRANTED){
+//                //TODO: get the location here
+//                fusedLocationProviderClient.getLastLocation()
+//                        .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+//                            @Override
+//                            public void onSuccess(Location location) {
+//                                // Got last known location. In some rare situations this can be null.
+//                                if (location != null) {
+//                                    // Logic to handle location object
+//                                    Toast.makeText(MainActivity.this, "Latitude: " + location.getLatitude() + ", Longitude" + location.getLongitude(), Toast.LENGTH_LONG).show();
+//                                }
+//                            }
+//                        });
+//            }else{
+//
+//            }
+//        }
         ////////////////////////////////
 //        cognitoUsername = AWSMobileClient.getInstance().getUsername();
         userNameSignedInText = (TextView) findViewById(R.id.userNameSignedInText);

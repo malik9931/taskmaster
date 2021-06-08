@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import com.example.taskmasterapp.Daos.TaskDao;
 import com.example.taskmasterapp.Models.TaskModule;
 
-@Database(entities = {TaskModule.class}, version = 3, exportSchema = false)
+@Database(entities = {TaskModule.class}, version = 4, exportSchema = false)
 public abstract class AppDataBase extends RoomDatabase {
 
     private static volatile AppDataBase appDataBase;
