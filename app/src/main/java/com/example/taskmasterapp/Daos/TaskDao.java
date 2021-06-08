@@ -1,32 +1,31 @@
 package com.example.taskmasterapp.Daos;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
-import com.example.taskmasterapp.Models.Task;
+import com.example.taskmasterapp.Models.TaskModule;
 
 import java.util.List;
 
 @Dao
 public interface TaskDao {
     @Insert
-    void addTask (Task task);
+    void addTask (TaskModule taskModule);
 
     @Update
-    void update(Task task);
+    void update(TaskModule taskModule);
 
     @Delete
-    void delete (Task task);
+    void delete (TaskModule taskModule);
 
-    @Query("DELETE FROM task")
+    @Query("DELETE FROM TaskModule")
     void deleteAllTasks();
 
-    @Query("SELECT * FROM task")
-    List<Task> getAllTasks();
+    @Query("SELECT * FROM TaskModule")
+    List<TaskModule> getAllTasks();
 
 //    @Query("SELECT * FROM task WHERE id= :id")
 //    Task findTaskById(Long id);

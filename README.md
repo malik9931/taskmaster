@@ -100,3 +100,9 @@ Refactor your homepage’s RecyclerView to display all Task entities in DynamoDB
 ### lab: 37 - S3
 * If a user attaches a file to a task, that file is uploaded to S3, and associated with that task.
 * On the Task detail activity, if there is a file that is an image associated with a particular Task, currently a string is displayed that shows the key to the file
+
+----------------------------------------------------------------------
+### lab: 38 - Notifications
+*  Push notifications to be delivered to the app from the Firebase.
+
+![Notifications screenshots](screenshots/notifications38.jpg)

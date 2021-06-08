@@ -9,18 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.taskmasterapp.Models.Task;
+import com.example.taskmasterapp.Models.TaskModule;
 
 import java.util.List;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHolder> {
     private Context context;
-    private List<Task> tasksList ;
+    private List<TaskModule> tasksList ;
     private RecyclerViewClickListener listener;
 
 
 
-    public RecyclerAdapter(List<Task> tasksList, RecyclerViewClickListener listener) {
+    public RecyclerAdapter(List<TaskModule> tasksList, RecyclerViewClickListener listener) {
         this.tasksList = tasksList;
         this.listener = listener;
     }
@@ -29,7 +29,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.ViewHo
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Task t = tasksList.get(position);
+        TaskModule t = tasksList.get(position);
         holder.titleTextView.setText(t.getTitle());
         holder.bodyTextView.setText(t.getBody());
         holder.stateTextView.setText(t.getState());

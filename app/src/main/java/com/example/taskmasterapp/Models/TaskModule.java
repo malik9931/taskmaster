@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 @Entity
-public class Task {
+public class TaskModule {
 
     @PrimaryKey(autoGenerate = true)
     private Long id;
@@ -20,10 +20,10 @@ public class Task {
     private String image;
 //    = {"new", "assigned", "progress", "complete"};
     @Ignore
-    public Task() {
+    public TaskModule() {
     }
 
-    public Task(String title, String body, String state, String image) {
+    public TaskModule(String title, String body, String state, String image) {
         this.title = title;
         this.body = body;
         this.state = state;
