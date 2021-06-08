@@ -18,16 +18,19 @@ public class TaskModule {
     private String state;
     @ColumnInfo(name = "image")
     private String image;
+    @ColumnInfo(name="address")
+    private String address;
 //    = {"new", "assigned", "progress", "complete"};
     @Ignore
     public TaskModule() {
     }
 
-    public TaskModule(String title, String body, String state, String image) {
+    public TaskModule(String title, String body, String state, String image,  String address) {
         this.title = title;
         this.body = body;
         this.state = state;
         this.image = image;
+        this.address = address;
     }
 
     public Long getId() {
@@ -68,5 +71,13 @@ public class TaskModule {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

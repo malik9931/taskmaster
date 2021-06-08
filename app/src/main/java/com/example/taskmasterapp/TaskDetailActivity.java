@@ -30,11 +30,13 @@ public class TaskDetailActivity extends AppCompatActivity {
         TextView bodyTextView = findViewById(R.id.taskDescriptionTextView);
         TextView stateTextView = findViewById(R.id.taskStatusTextView);
         ImageView taskImageView = findViewById(R.id.taskImageView);
+        TextView taskLocationTextView = findViewById(R.id.locationTextView);
 
         String title = "Title not set";
         String body = "Body not set";
         String state = "state not set";
         String image = "image not set";
+        String address = "image not set";
 
 
 
@@ -44,6 +46,8 @@ public class TaskDetailActivity extends AppCompatActivity {
             body = extras.getString("body");
             state = extras.getString("state");
             image = extras.getString("image");
+            address = extras.getString("address");
+
 
         }
 
@@ -51,7 +55,7 @@ public class TaskDetailActivity extends AppCompatActivity {
         titleTextView.setText(title);
         bodyTextView.setText(body);
         stateTextView.setText(state);
-
+        taskLocationTextView.setText(getIntent().getStringExtra("address"));
 
         // To Download the file we use the Glide Library
         Glide.with(this)
