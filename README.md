@@ -106,3 +106,8 @@ Refactor your homepage’s RecyclerView to display all Task entities in DynamoDB
 *  Push notifications to be delivered to the app from the Firebase.
 
 ![Notifications screenshots](screenshots/notifications38.jpg)
+
+----------------------------------------------------------------------
+### lab: 41
+*  add intent filter so that when ever a user click share button on an image, add task activity shows up
+![Notifications screenshots](screenshots/notifications38.jpg)
