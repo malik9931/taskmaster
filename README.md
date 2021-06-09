@@ -106,3 +106,5 @@ Refactor your homepage’s RecyclerView to display all Task entities in DynamoDB
 *  Push notifications to be delivered to the app from the Firebase.
 
 ![Notifications screenshots](screenshots/notifications38.jpg)
+
+![Notifications screenshots](screenshots/notifications38a.png)
