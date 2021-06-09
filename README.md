@@ -107,4 +107,14 @@ Refactor your homepage’s RecyclerView to display all Task entities in DynamoDB
 
 ![Notifications screenshots](screenshots/notifications38.jpg)
 
+
 ![Notifications screenshots](screenshots/notifications38a.png)
+
+----------------------------------------------------------------------
+### lab: 41
+*  add intent filter so that when ever a user click share button on an image, add task activity shows up
+
+----------------------------------------------------------------------
+### lab: 42
+*  app will add the user’s location to a task automatically when that task is created.
+

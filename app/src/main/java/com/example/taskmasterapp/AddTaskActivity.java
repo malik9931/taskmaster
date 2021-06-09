@@ -31,6 +31,7 @@ public class AddTaskActivity extends AppCompatActivity {
     private Button pickImageButton;
     private TextView titleTextView;
     private String uploadedFileName= "ss";
+    private String address;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -45,7 +46,7 @@ public class AddTaskActivity extends AppCompatActivity {
         Intent intent = getIntent();
         TextView totalTaskTextView = (TextView) findViewById(R.id.totalTaskTextView);
         totalTaskTextView.setText("Total Sorted Task: "+AppDataBase.getInstance(getApplicationContext()).taskDao().getAllTasks().size());
-
+        address = MainActivity.currentLocation;
         pickImageButton =(Button) findViewById(R.id.pickImageButton);
         pickImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +71,7 @@ public class AddTaskActivity extends AppCompatActivity {
 //                    Toast.makeText(AddTaskActivity.this,"U added a new Task",Toast.LENGTH_SHORT).show();
 
 //                Task task= Task.builder().title(titleTextView.getText().toString()).body(bodyTextView.getText().toString()).state(State.NEW).build();
-                TaskModule taskModule = new TaskModule(titleTextView.getText().toString(),bodyTextView.getText().toString(),radioButton.getText().toString(),uploadedFileName);
+                TaskModule taskModule = new TaskModule(titleTextView.getText().toString(),bodyTextView.getText().toString(),radioButton.getText().toString(),uploadedFileName, address);
                 AppDataBase.getInstance(getApplicationContext()).taskDao().addTask(taskModule);
                 // upload an image to the S3 AWS
 //                uploadFile(titleTextView.getText().toString());
@@ -80,7 +81,19 @@ public class AddTaskActivity extends AppCompatActivity {
 //                );
                 finish();
             }
+
         });
+        intent = getIntent();
+        if(intent.getType() != null){
+//            Toast.makeText(this, intent.getData().toString(), Toast.LENGTH_LONG).show();
+//            if(intent.getType().contains("image/")){
+//                fileName = getFileName(intent.getData());
+//                // TODO: call the upload file here, when it is fixed
+//                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+//                    uploadFile(this, intent.getData(), fileName);
+//                }
+//            }
+        }
     }
 //    private void uploadInputStream() {
 //        InputStream exampleInputStream = getContentResolver().openInputStream(uri);
